@@ -1,0 +1,16 @@
+{
+  "name": "mf-example",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "concurrently \"cd host; npm run start\"",
+    "build": "concurrently \"cd host; npm run build\""
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Esteban Burgos",
+    "email": "info@estebanburgos.com.ar"
+  },
+  "dependencies": {
+    "concurrently": "^6.2.0"
+  }
+}
