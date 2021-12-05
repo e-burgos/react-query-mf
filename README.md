@@ -11,5 +11,4 @@ En la raiz del proyecto general ejecutar el siguiente comando
 npm run start
 ```
 
-Esto iniciara con la ejecucion en paralelo ambos proyectos. Luego abrir la siguiente direccion en el browser http://localhost:3001 (remote) o http://localhost:3000 (host)
-
+Esto iniciara con la ejecucion en paralelo todos los proyectos.
