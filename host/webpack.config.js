@@ -1,9 +1,13 @@
+const path = require('path');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 
 const deps = require("./package.json").dependencies;
 module.exports = {
+  entry: './src/index.ts',
   output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
     publicPath: "http://localhost:3000/",
   },
 
@@ -19,22 +23,24 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.m?js/,
         type: "javascript/auto",
+        test: /\.m?js/,
         resolve: {
           fullySpecified: false,
         },
       },
       {
-        test: /\.(css|s[ac]ss)$/i,
         use: ["style-loader", "css-loader", "postcss-loader"],
+        test: /\.(css|s[ac]ss)$/i,
       },
       {
+        use:  "babel-loader",
         test: /\.(ts|tsx|js|jsx)$/,
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-        },
+      },
+      {
+        type: 'asset',
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
       },
     ],
   },
@@ -44,10 +50,14 @@ module.exports = {
       name: "host",
       filename: "remoteEntry.js",
       remotes: {
-        remote: "remote@http://localhost:3001/remoteEntry.js",
-        remote_fetch_mf: "remote_fetch_mf@http://localhost:3002/remoteEntry.js"
+        landing_mf: "landing_mf@http://localhost:3001/remoteEntry.js",
+        dashboard_mf: "dashboard_mf@http://localhost:3002/remoteEntry.js",
       },
-      exposes: {},
+      exposes: {
+        "./FooterSmall": "./src/components/Footers/FooterSmall.tsx",
+        "./IndexNavbar": "./src/components/Navbars/IndexNavbar.tsx",
+        "./IndexDropdown": "./src/components/Dropdowns/IndexDropdown.tsx",
+      },
       shared: {
         ...deps,
         react: {
@@ -61,7 +71,7 @@ module.exports = {
       },
     }),
     new HtmlWebPackPlugin({
-      template: "./src/index.html",
+      template: "./public/index.html",
     }),
   ],
 };

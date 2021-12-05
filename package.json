@@ -2,8 +2,8 @@
   "name": "mf-example",
   "version": "1.0.0",
   "scripts": {
-    "start": "concurrently \"cd host; npm run start\"",
-    "build": "concurrently \"cd host; npm run build\""
+    "start": "concurrently \"cd host; npm run start\" \"cd dashboard-mf; npm run start\" \"cd landing-mf; npm run start\"",
+    "build": "concurrently \"cd host; npm run build\" \"cd dashboard-mf; npm run build\" \"cd landing-mf; npm run build\""
   },
   "license": "MIT",
   "author": {

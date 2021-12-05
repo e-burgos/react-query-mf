@@ -1,0 +1,15 @@
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+#jsdocs
+/doc/jsdoc
+
+
+/out
+
+/next
+
+/build

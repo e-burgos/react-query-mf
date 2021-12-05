@@ -1,0 +1,47 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": ["plugin:react/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": ["react", "@typescript-eslint", "eslint-plugin-no-inline-styles"],
+  "rules": {
+    "no-use-before-define": "off",
+    "import/extensions": "off",
+    "no-shadow": "off",
+    "no-console": "off",
+    "no-alert": "error",
+    "no-multi-spaces": "error",
+    "no-undef": "off",
+    "no-unused-vars": "off",
+    "no-var": "error",
+    "eqeqeq": "error",
+    "prefer-const": "error",
+    "camelcase": "off",
+    "no-const-assign": "error",
+    "jsx-quotes": [0, "prefer-single"],
+    "no-param-reassign": [2, { "props": false }],
+    "no-inline-styles/no-inline-styles": "error",
+    "array-callback-return": "warn",
+    "max-len": ["error", { "code": 120, "ignoreStrings": true, "ignoreTemplateLiterals": true }],
+    "react/jsx-filename-extension": [2, { "extensions": [".ts", ".tsx"] }],
+    "react/no-array-index-key": "warn",
+    "react/react-in-jsx-scope": "off",
+    "react/no-unescaped-entities": "off",
+    "react/prop-types": "warn",
+    "react/display-name": [0, { "ignoreTranspilerName": false }],
+    "@typescript-eslint/no-unused-vars": "off",
+    // "no-unused-vars": ["error", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
+    "import/no-unresolved": "off",
+    "@typescript-eslint/ban-ts-comment": "off"
+  }
+}
