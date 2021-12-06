@@ -6,7 +6,7 @@ const deps = require("./package.json").dependencies;
 module.exports = {
   entry: './src/index.ts',
   output: {
-    filename: 'bundle.js',
+    filename: 'bundle_host.js',
     path: path.resolve(__dirname, 'dist'),
     publicPath: "http://localhost:3000/",
   },

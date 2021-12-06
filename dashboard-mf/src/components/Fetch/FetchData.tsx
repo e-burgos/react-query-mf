@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useFetch } from '../../utils/useFetch';
+import DashboardSkeleton from '../Skeleton/DashboardSkeleton';
 
 type Props = {
   title: string;
@@ -19,9 +20,9 @@ const FetchData = ({ title }: Props) => {
   return (
     <div className='border-2 border-solid border-red-200 border-r-8 rounded-lg p-3 text-center'>
       {error ? (
-        <p>Upps, we have a error...</p>
+        <DashboardSkeleton text='Upps, we have a error...'/>
       ) : loading ? (
-        <p>Searching Drinks...</p>
+        <DashboardSkeleton text='Cargando ...'/>
       ) : data ? (
         <div className='w-full flex flex-wrap items-center mt-10'>
           <div className='w-full md:w-5/12 px-4 mr-auto ml-auto'>
