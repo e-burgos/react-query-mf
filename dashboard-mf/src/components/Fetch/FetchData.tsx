@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useFetch } from '../../utils/useFetch';
 import DashboardSkeleton from '../Skeleton/DashboardSkeleton';
+import Loader from '../Skeleton/Loader';
 
 type Props = {
   title: string;
@@ -22,7 +23,7 @@ const FetchData = ({ title }: Props) => {
       {error ? (
         <DashboardSkeleton text='Upps, we have a error...'/>
       ) : loading ? (
-        <DashboardSkeleton text='Cargando ...'/>
+        <Loader text={'Cargando...'} />
       ) : data ? (
         <div className='w-full flex flex-wrap items-center mt-10'>
           <div className='w-full md:w-5/12 px-4 mr-auto ml-auto'>

@@ -2,12 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 
 type Props = {
-  statSubtitle?: string;
-  statTitle?: string;
-  statArrow?: string;
-  statPercent?: string;
-  statPercentColor?: string;
-  statDescripiron?: string;
+  statSubtitle?: string | undefined | null;
+  statTitle?: string | number | undefined | null ;
+  statArrow?: string | undefined | null;
+  statPercent?: string | undefined | null;
+  statPercentColor?: string | undefined | null;
+  statDescripiron?: string | number | undefined | null;
   statIconName?: string;
   statIconColor?: string;
 }
@@ -24,7 +24,7 @@ export default function CardStats({
 }: Props) {
   return (
     <>
-      <div className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+      <div className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 shadow-lg">
         <div className="flex-auto p-4">
           <div className="flex flex-wrap">
             <div className="relative w-full pr-4 max-w-full flex-grow flex-1">
@@ -52,12 +52,14 @@ export default function CardStats({
                 className={
                   statArrow === "up"
                     ? "fas fa-arrow-up"
+                    : statArrow === "right"
+                    ? "fas fa-arrow-circle-right"
                     : statArrow === "down"
                     ? "fas fa-arrow-down"
                     : ""
                 }
               ></i>{" "}
-              {statPercent}%
+              {statPercent}
             </span>
             <span className="whitespace-nowrap">{statDescripiron}</span>
           </p>
@@ -76,19 +78,4 @@ CardStats.defaultProps = {
   statDescripiron: "Since last month",
   statIconName: "far fa-chart-bar",
   statIconColor: "bg-red-500",
-};
-
-CardStats.propTypes = {
-  statSubtitle: PropTypes.string,
-  statTitle: PropTypes.string,
-  statArrow: PropTypes.oneOf(["up", "down"]),
-  statPercent: PropTypes.string,
-  // can be any of the text color utilities
-  // from tailwindcss
-  statPercentColor: PropTypes.string,
-  statDescripiron: PropTypes.string,
-  statIconName: PropTypes.string,
-  // can be any of the background color utilities
-  // from tailwindcss
-  statIconColor: PropTypes.string,
 };

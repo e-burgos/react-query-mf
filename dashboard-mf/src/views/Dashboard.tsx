@@ -1,15 +1,35 @@
 /*eslint-disable*/
-import React from 'react';
-import { Link } from 'react-router-dom';
-import FetchData from '../components/Fetch/FetchData';
+import React, { useEffect, useState } from 'react';
+import CardInfo from '../components/Cards/CardInfo';
+import Loader from '../components/Skeleton/Loader';
+import TableSkeleton from '../components/Skeleton/TableSkeleton';
 import AdminLayout from '../layouts/AdminLayout';
+import { CoinFullInfo } from '../types';
 
 export default function Dashboard() {
+  const [coin, setCoin] = useState<CoinFullInfo | undefined>({});
+  const [loading, setLoading] = useState<Boolean>(true);
+
+  useEffect(() => {
+    if(!coin){
+      setLoading(true)
+    } else setLoading(false)
+  }, [coin])
+
+  console.log(coin)
+
   return (
-    <AdminLayout>
-      <div className='mt-120'>
-        <FetchData title={'Dashboard MF FetchData'} />
-      </div>
+    <AdminLayout setlayoutCoin={setCoin}>
+      {loading ? (
+        <Loader text={'Cargando...'} />
+      ) : 
+      coin ? (
+        <div className='flex flex-wrap mt-4'>
+          <div className='w-full mb-12 px-4'>
+            <CardInfo title={`Información General de ${coin.name}`} color='light' data={coin} />
+          </div>
+        </div>
+      ) : null}
     </AdminLayout>
   );
 }

@@ -5,7 +5,7 @@ type Props = {
   text: string;
 };
 
-export default function DashboardSkeleton({ text }: Props) {
+export default function TableSkeleton({ text }: Props) {
   return (
     <section className='header items-center flex h-screen'>
       <div className=' mx-auto items-center flex flex-wrap'>

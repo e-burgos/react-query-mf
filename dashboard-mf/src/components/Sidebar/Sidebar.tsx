@@ -1,12 +1,23 @@
 /*eslint-disable*/
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { CoinFullInfo, Image, Links } from '../../types';
+import CoinImage from '../Dropdowns/CoinImage';
+import SelectCoin from '../Selectors/SelectCoin';
 
-import NotificationDropdown from '..//Dropdowns/NotificationDropdown';
-import UserDropdown from '../Dropdowns/UserDropdown';
+type Props = {
+  setValue: Function;
+  data: CoinFullInfo[] | undefined;
+  image: Image | undefined;
+  links: Links | undefined;
+  loading: Boolean;
+  currentCoin: CoinFullInfo | undefined;
+}
 
-export default function Sidebar() {
+export default function Sidebar({setValue, data, image, links, loading, currentCoin}: Props) {
+
   const [collapseShow, setCollapseShow] = React.useState('hidden');
+
   return (
     <>
       <nav className='md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6'>
@@ -27,10 +38,7 @@ export default function Sidebar() {
           {/* User */}
           <ul className='md:hidden items-center flex flex-wrap list-none'>
             <li className='inline-block relative'>
-              <NotificationDropdown />
-            </li>
-            <li className='inline-block relative'>
-              <UserDropdown />
+              <CoinImage image={image} links={links} />
             </li>
           </ul>
           {/* Collapse */}
@@ -61,13 +69,11 @@ export default function Sidebar() {
             </div>
             {/* Form */}
             <form className='mt-6 mb-4 md:hidden'>
-              <div className='mb-3 pt-0'>
-                <input
-                  type='text'
-                  placeholder='Search'
-                  className='px-3 py-2 h-12 border border-solid  border-blueGray-500 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal'
-                />
-              </div>
+              <SelectCoin 
+                setValue={setValue} 
+                data={data} 
+                loading={loading} 
+              />
             </form>
 
             {/* Divider */}

@@ -1,30 +1,35 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import CardTable from '../components/Cards/CardTable';
+import Loader from '../components/Skeleton/Loader';
+import TableSkeleton from '../components/Skeleton/TableSkeleton';
 import AdminLayout from '../layouts/AdminLayout';
+import { useQueryCryptos } from '../utils/useQueryCryptos';
 
 export default function Tables() {
-  return (  
+  const [page, setPage] = useState<number>(1);
+  const [count, setCount] = useState<number>(10);
+  const { data, error, isLoading } = useQueryCryptos(page, count);
+
+  return (
     <AdminLayout>
-      <section className='header relative pt-16 items-center flex h-screen max-h-860-px'>
-        <div className='container mx-auto items-center flex flex-wrap'>
-          <div className='w-full md:w-8/12 lg:w-6/12 xl:w-6/12 px-4'>
-            <div className='pt-32 sm:pt-0'>
-              <h2 className='font-semibold text-4xl text-blueGray-600'>
-                Tables Page
-              </h2>
-              <p className='mt-4 text-lg leading-relaxed text-blueGray-500'>
-                Un simple ejemplo de una pagina que consume tanto el header con footter del host.
-              </p>
-              <div className='mt-12'>
-                <Link
-                  to="/landing/company"
-                  className='get-started text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-lightBlue-500 active:bg-lightBlue-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150'
-                  >Ir a Pagina Interna</Link>
-              </div>
-            </div>
+      { error ? (
+        <TableSkeleton text={'Upps temenos un error...'} />
+      ) : isLoading ? (
+        <Loader text={'Cargando...'} />
+      ) : data ? (
+        <div className='flex flex-wrap mt-4'>
+          <div className='w-full mb-12 px-4'>
+            <CardTable 
+              title='Cotizaciones Actuales' 
+              color='light' 
+              setPage={setPage} 
+              setCount={setCount} 
+              data={data} 
+              count={count} 
+              page={page} />
           </div>
         </div>
-      </section>
+      ) : null}
     </AdminLayout>
   );
 }
