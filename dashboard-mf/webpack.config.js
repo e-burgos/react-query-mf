@@ -21,7 +21,7 @@ console.log('Dashboard-mf: ' + process.env.REACT_APP_DASHBOARD_URL);
     output: {
       filename: 'bundle_dashboard.js',
       path: path.resolve(__dirname, 'dist'),
-      publicPath: `http://localhost:3002/`,
+      publicPath: `${process.env.REACT_APP_DASHBOARD_URL}/`,
     },
 
     resolve: {

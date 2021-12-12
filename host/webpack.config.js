@@ -21,7 +21,7 @@ module.exports = (env) => {
     output: {
       filename: 'bundle_host.js',
       path: path.resolve(__dirname, 'dist'),
-      publicPath: "http://localhost:3000/",
+      publicPath: `${process.env.REACT_APP_HOST_URL}/`,
     },
 
     resolve: {

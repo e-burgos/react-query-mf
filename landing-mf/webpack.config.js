@@ -21,7 +21,7 @@ module.exports = (env) => {
     output: {
       filename: 'bundle_landing.js',
       path: path.resolve(__dirname, 'dist'),
-      publicPath: "http://localhost:3001/",
+      publicPath: `${process.env.REACT_APP_LANDING_URL}/`,
     },
 
     resolve: {
