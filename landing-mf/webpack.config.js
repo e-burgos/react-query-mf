@@ -1,75 +1,93 @@
 const path = require('path');
+const Dotenv = require('dotenv-webpack');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 
 const deps = require("./package.json").dependencies;
-module.exports = {
-  entry: './src/index.ts',
-  output: {
-    filename: 'bundle_landing.js',
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: "http://localhost:3001/",
-  },
+module.exports = (env) => {
 
-  resolve: {
-    extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
-  },
+  process.env.PRODUCTION = 'on';
+  process.env.REACT_APP_HOST_URL= process.env.PRODUCTION === 'on' ? 'https://react-query-mf.vercel.app' : 'http://localhost:3000';
+  process.env.REACT_APP_LANDING_URL= process.env.PRODUCTION === 'on' ? 'https://landing-mf.vercel.app' : 'http://localhost:3001';
+  process.env.REACT_APP_DASHBOARD_URL= process.env.PRODUCTION === 'on' ? 'https://dashboard-mf.vercel.app' : 'http://localhost:3002';
+  
+  console.log('Production: ', process.env.PRODUCTION);
+  console.log('Host: ' + process.env.REACT_APP_HOST_URL);
+  console.log('Landing-mf: ' + process.env.REACT_APP_LANDING_URL);
+  console.log('Dashboard-mf: ' + process.env.REACT_APP_DASHBOARD_URL);
+  
+    return {
+    entry: './src/index.ts',
+    output: {
+      filename: 'bundle_landing.js',
+      path: path.resolve(__dirname, 'dist'),
+      publicPath: "http://localhost:3001/",
+    },
 
-  devServer: {
-    port: 3001,
-    historyApiFallback: true,
-  },
+    resolve: {
+      extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
+    },
 
-  module: {
-    rules: [
-      {
-        type: "javascript/auto",
-        test: /\.m?js/,
-        resolve: {
-          fullySpecified: false,
+    devServer: {
+      port: 3001,
+      historyApiFallback: true,
+    },
+
+    module: {
+      rules: [
+        {
+          type: "javascript/auto",
+          test: /\.m?js/,
+          resolve: {
+            fullySpecified: false,
+          },
         },
-      },
-      {
-        use: ["style-loader", "css-loader", "postcss-loader"],
-        test: /\.(css|s[ac]ss)$/i,
-      },
-      {
-        use:  "babel-loader",
-        test: /\.(ts|tsx|js|jsx)$/,
-        exclude: /node_modules/,
-      },
-      {
-        type: 'asset',
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
-      },
+        {
+          use: ["style-loader", "css-loader", "postcss-loader"],
+          test: /\.(css|s[ac]ss)$/i,
+        },
+        {
+          use:  "babel-loader",
+          test: /\.(ts|tsx|js|jsx)$/,
+          exclude: /node_modules/,
+        },
+        {
+          type: 'asset',
+          test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        },
+      ],
+    },
+
+    plugins: [
+      new Dotenv({
+        path: `.env${env.file ? `.${env.file}` : ''}`,
+        allowEmptyValues: true,
+      }),
+      new ModuleFederationPlugin({
+        name: "landing_mf",
+        filename: "remoteEntry.js",
+        remotes: {
+          host: `host@${process.env.REACT_APP_HOST_URL}/remoteEntry.js`
+        },
+        exposes: {
+          "./LandingPage": "./src/views/LandingPage.tsx",
+          "./CompanyPage": "./src/views/CompanyPage.tsx",
+        },
+        shared: {
+          ...deps,
+          react: {
+            singleton: true,
+            requiredVersion: deps.react,
+          },
+          "react-dom": {
+            singleton: true,
+            requiredVersion: deps["react-dom"],
+          },
+        },
+      }),
+      new HtmlWebPackPlugin({
+        template: "./public/index.html",
+      }),
     ],
-  },
-
-  plugins: [
-    new ModuleFederationPlugin({
-      name: "landing_mf",
-      filename: "remoteEntry.js",
-      remotes: {
-        host: "host@http://localhost:3000/remoteEntry.js"
-      },
-      exposes: {
-        "./LandingPage": "./src/views/LandingPage.tsx",
-        "./CompanyPage": "./src/views/CompanyPage.tsx",
-      },
-      shared: {
-        ...deps,
-        react: {
-          singleton: true,
-          requiredVersion: deps.react,
-        },
-        "react-dom": {
-          singleton: true,
-          requiredVersion: deps["react-dom"],
-        },
-      },
-    }),
-    new HtmlWebPackPlugin({
-      template: "./public/index.html",
-    }),
-  ],
+  }
 };

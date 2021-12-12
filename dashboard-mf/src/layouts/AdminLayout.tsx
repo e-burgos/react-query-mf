@@ -7,6 +7,9 @@ import { useQueryCryptoById } from '../utils/useQueryCryptoById';
 import { useQueryCryptos } from '../utils/useQueryCryptos';
 import { CoinFullInfo, Image, Links } from '../types'
 
+//Remote component from Host
+import Footer from "host/FooterSmall";
+
 type Props = {
   children: React.ReactNode;
   setlayoutCoin?: Function | undefined;
@@ -60,6 +63,7 @@ export default function AdminLayout({children, setlayoutCoin}: Props) {
         <div className='px-4 md:px-10 mx-auto w-full -m-24'>
           {children}
           <FooterAdmin />
+          {/* <Footer fixed /> */}
         </div>
       </div>
     </>
