@@ -20,7 +20,7 @@ export default function Tables() {
         <div className='flex flex-wrap mt-4'>
           <div className='w-full mb-12 px-4'>
             <CardTable 
-              title='Cotizaciones Actuales' 
+              title='COTIZACIONES' 
               color='light' 
               setPage={setPage} 
               setCount={setCount} 

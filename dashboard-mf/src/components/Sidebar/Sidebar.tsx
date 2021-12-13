@@ -36,11 +36,9 @@ export default function Sidebar({setValue, data, image, links, loading, currentC
               to='/'>
               Micro Dashboard
             </Link>
-            
             <h6 className=' text-blueGray-500 text-xs text-center uppercase font-bold no-underline'>
-              Moneda Actual {currentCoin?.name}
+              {currentCoin?.name}
             </h6>
-            
           </div>
           {/* User */}
           <ul className='md:hidden items-center flex flex-wrap list-none'>
