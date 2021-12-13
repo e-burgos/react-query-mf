@@ -5,9 +5,10 @@ type Props = {
   type: string;
   setValue: Function;
   value: number[];
+  icon?: string;
 }
 
-const TableDropdown = ({type, setValue, value}: Props) => {
+const TableDropdown = ({type, setValue, value, icon}: Props) => {
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const btnDropdownRef = React.createRef<any>();
   const popoverDropdownRef = React.createRef<any>();
@@ -32,14 +33,15 @@ const TableDropdown = ({type, setValue, value}: Props) => {
   return (
     <>
       <div
-        className="cursor-pointer text-white font-bold px-6 py-2 rounded outline-none focus:outline-none mr-1 mb-1 bg-blueGray-700 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
+        className="cursor-pointer text-white font-bold px-3 py-2 rounded outline-none focus:outline-none mr-1 mb-1 bg-blueGray-700 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
         ref={btnDropdownRef}
         onClick={(e) => {
           e.preventDefault();
           dropdownPopoverShow ? closeDropdownPopover() : openDropdownPopover();
         }}
       >
-        {` ${type}`}
+        <i className={`${icon}`}></i>
+        <span>{type}</span> 
       </div>
       <div
         ref={popoverDropdownRef}

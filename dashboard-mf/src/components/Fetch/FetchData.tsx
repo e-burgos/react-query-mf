@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { useFetch } from '../../utils/useFetch';
+import { useFetch } from '../../utils/useFetchExample';
 import DashboardSkeleton from '../Skeleton/DashboardSkeleton';
 import Loader from '../Skeleton/Loader';
 

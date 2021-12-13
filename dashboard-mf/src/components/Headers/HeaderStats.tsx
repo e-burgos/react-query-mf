@@ -23,7 +23,7 @@ export default function HeaderStats({ currentCoin, loading }: Props) {
                 Cargando...
               </h3>
             ) : currentCoin ? (
-              <div className='flex flex-wrap'>
+              <div className='flex flex-wrap md:mt-0 mt-20'>
                 <div className='w-full lg:w-6/12 xl:w-6/12 px-4'>
                   <CardStats
                     statSubtitle='FECHA DE CREACION'

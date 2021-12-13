@@ -6,7 +6,7 @@ async function fetchCryptoById(id: string) {
         method: "GET",
         headers: {
             "x-rapidapi-host": "coingecko.p.rapidapi.com",
-            "x-rapidapi-key": "26496942d1msh975fcb8f3965c14p19bfb9jsnce8c17126755"
+            "x-rapidapi-key": `${process.env.REACT_APP_RAPIDAPI_KEY}`
         }
     });
     const crypto = await response.json();

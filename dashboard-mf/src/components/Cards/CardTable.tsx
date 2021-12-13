@@ -23,12 +23,12 @@ CardTable.propTypes = {
 };
 
 export default function CardTable({ title, color, setCount, count, setPage, page, data }: Props) {
-  const pages = [1,2,3,4,5,6,7,8,9,10];
-  const itemsPerPage = [10,20,30,40,50];
-  const clientQuery = useQueryClient()
+  const pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const itemsPerPage = [10, 20, 30, 40, 50];
+  const clientQuery = useQueryClient();
 
   const handleRefresh = () => {
-    clientQuery.resetQueries(['cryptos', page, count])
+    clientQuery.resetQueries(['cryptos', page, count]);
   };
 
   return (
@@ -44,19 +44,50 @@ export default function CardTable({ title, color, setCount, count, setPage, page
               <h3 className={'font-bold text-lg ' + (color === 'light' ? 'text-blueGray-700' : 'text-white')}>
                 {title}
               </h3>
-              <div className='hidden flex-row items-center sm:flex md:flex'>
-                { page > 1 && <span onClick={() => setPage(page -1)}><i className="fas fa-arrow-left"></i></span>}
-                <small className='px-4'>Página {page} ({count} items)</small>
-                { page < 10 && <span onClick={() => setPage(page +1)}><i className="fas fa-arrow-right"></i></span>}
+              <div className='hidden md:flex md:flex-row items-center'>
+                {page > 1 && (
+                  <span onClick={() => setPage(page - 1)}>
+                    <i className='fas fa-arrow-left'></i>
+                  </span>
+                )}
+                <small className='px-4'>
+                  Página {page} ({count} items)
+                </small>
+                {page < 10 && (
+                  <span onClick={() => setPage(page + 1)}>
+                    <i className='fas fa-arrow-right'></i>
+                  </span>
+                )}
               </div>
-              <div className='flex flex-row'>
-                <TableDropdown type={'Pagina'} setValue={setPage} value={pages} />
-                <TableDropdown type={'Items'} setValue={setCount} value={itemsPerPage} />
+              <div className='md:hidden items-center flex'>
+                {page > 1 && (
+                  <span onClick={() => setPage(page - 1)}>
+                    <i className='fas fa-arrow-left mr-2'></i>
+                  </span>
+                )}
+                {page < 10 && (
+                  <span onClick={() => setPage(page + 1)}>
+                    <i className='fas fa-arrow-right'></i>
+                  </span>
+                )}
+              </div>
+              <div className='flex flex-row ml-2'>
+                <div className='hidden md:flex md:flex-row items-center'>
+                  <TableDropdown type={'Pagina'} icon={''} setValue={setPage} value={pages} />
+                </div>
+                <div className='md:hidden items-center flex'>
+                  <TableDropdown type={''} icon={'fas fa-list-ol'} setValue={setPage} value={pages} />
+                </div>
+                <div className='hidden md:flex md:flex-row items-center'>
+                  <TableDropdown type={'Items'} icon={''} setValue={setCount} value={itemsPerPage} />
+                </div>
+                <div className='md:hidden items-center flex'>
+                  <TableDropdown type={''} icon={'far fa-caret-square-down'} setValue={setCount} value={itemsPerPage} />
+                </div>
                 <div
-                  className="cursor-pointer text-white font-bold px-6 py-2 rounded outline-none focus:outline-none mr-1 mb-1 bg-blueGray-700 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
-                  onClick={() => handleRefresh()}
-                >
-                  <i className="fas fa-undo"></i>
+                  className='cursor-pointer text-white font-bold px-3 py-2 rounded outline-none focus:outline-none mr-1 mb-1 bg-blueGray-700 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150'
+                  onClick={() => handleRefresh()}>
+                  <i className='fas fa-undo'></i>
                 </div>
               </div>
             </div>

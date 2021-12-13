@@ -20,7 +20,7 @@ export default function Sidebar({setValue, data, image, links, loading, currentC
 
   return (
     <>
-      <nav className='md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6'>
+      <nav className=' fixed md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between md:w-64 w-full z-10 py-4 px-6'>
         <div className='md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full mx-auto'>
           {/* Toggler */}
           <button
@@ -30,11 +30,18 @@ export default function Sidebar({setValue, data, image, links, loading, currentC
             <i className='fas fa-bars'></i>
           </button>
           {/* Brand */}
-          <Link
-            className='md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0'
-            to='/'>
-            Micro Dashboard
-          </Link>
+          <div className='flex flex-col items-center md:pb-2 p-4 px-0'>
+            <Link
+              className='md:block text-left text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold'
+              to='/'>
+              Micro Dashboard
+            </Link>
+            
+            <h6 className=' text-blueGray-500 text-xs text-center uppercase font-bold no-underline'>
+              Moneda Actual {currentCoin?.name}
+            </h6>
+            
+          </div>
           {/* User */}
           <ul className='md:hidden items-center flex flex-wrap list-none'>
             <li className='inline-block relative'>
@@ -72,7 +79,8 @@ export default function Sidebar({setValue, data, image, links, loading, currentC
               <SelectCoin 
                 setValue={setValue} 
                 data={data} 
-                loading={loading} 
+                loading={loading}
+                setCollapseShow={setCollapseShow} 
               />
             </form>
 

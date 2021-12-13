@@ -16,6 +16,8 @@ import Dashboard from './views/Dashboard';
 import Tables from './views/Tables';
 import OtherPages from './views/OtherPages';
 
+console.log(process.env.REACT_APP_RAPIDAPI_KEY !== undefined ? 'Coingecko/Rapidapi Online' : "Coingecko/Rapidapi OFF")
+
 ReactDOM.render(
   <QueryClientProvider client={queryClient} contextSharing={true}>
     <BrowserRouter>

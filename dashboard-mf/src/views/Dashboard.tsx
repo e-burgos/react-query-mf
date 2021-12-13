@@ -16,8 +16,6 @@ export default function Dashboard() {
     } else setLoading(false)
   }, [coin]);
 
-  console.log(process.env.REACT_APP_HOST_URL)
-
   return (
     <AdminLayout setlayoutCoin={setCoin}>
       {loading ? (
