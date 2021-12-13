@@ -60,8 +60,8 @@ console.log('Dashboard-mf: ' + process.env.REACT_APP_DASHBOARD_URL);
 
     plugins: [
       new Dotenv({
-        // path: `.env${env.file ? `.${env.file}` : ''}`,
-        // allowEmptyValues: true,
+        path: `.env${env.file ? `.${env.file}` : ''}`,
+        allowEmptyValues: true,
       }),
       new ModuleFederationPlugin({
         name: "dashboard_mf",
